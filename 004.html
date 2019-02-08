@@ -1,0 +1,76 @@
+<!-- directive -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+        <style type="text/css">
+        	.title{
+        		color: green;
+        	}
+            legend{
+                color: green;
+                font-size: 1.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <legend>v-html</legend>
+            <p v-html="d_html">{{d_html}}</p>
+            <hr>
+
+            <legend>v-show</legend>
+            <p v-show="d_show">show/hide</p>
+            <button onclick="vm.showHide()">show - hide</button>
+            <hr>
+
+            <legend>v-if</legend>
+            <div v-if="nilai === 'A'">
+                Sempurna
+            </div>
+            <div v-else-if="nilai === 'B'">
+                Bagus
+            </div>
+            <div v-else-if="nilai === 'C'">
+                Cukup
+            </div>
+            <div v-else>
+                Kurang
+            </div>
+            <hr>
+
+            <legend>v-on</legend>
+            <button v-on:click="info('Hello')">click hello</button>
+            <br><br>
+            <button v-on:click="counter +=1">Counter +</button> &nbsp; <button v-on:click="counter=0">reset</button>
+            <p>klik counter sebanyak {{counter}}</p>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+				el: '#app',
+				data: {
+					d_html: "<span style='color:red'>Semangat Pagi Indonesia</span>",
+                    d_show: true,
+                    nilai: "A",
+                    counter: 0
+				},
+                methods: {
+                    showHide() {
+                        if(this.d_show){
+                            this.d_show = false
+                        }else{
+                            this.d_show = true
+                        }
+                    },
+                    info(text) {
+                        alert(text);
+                    }
+                }
+			})
+        </script>
+    </body>
+</html>

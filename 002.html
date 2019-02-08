@@ -1,0 +1,34 @@
+<!-- Properti template -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+        <style type="text/css">
+        	.title{
+        		color: green;
+        	}
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1 v-bind:class="class_title">
+                {{ message }}
+            </h1>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+				el: '#app',
+				data: {
+					message: 'Hello world!',
+					teks: "<span style='color:red'>Semangat Pagi Indonesia</span>",
+					class_title: 'title'
+				},
+				template: '<h1 class="title-h1" v-bind:class="class_title">{{ message }}</h1>'
+			})
+        </script>
+    </body>
+</html>
