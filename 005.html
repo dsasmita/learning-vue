@@ -1,0 +1,147 @@
+<!-- list -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+        <style type="text/css">
+        	.title{
+        		color: green;
+        	}
+
+            legend{
+                font-size: 24px;
+                font-weight: 700;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1>List</h1>
+            <legend>v-for basic</legend>
+            <ul>
+                <li v-for="book in books">
+                    {{book}}
+                </li>
+            </ul>
+
+            <legend>V-for with template</legend>
+            <ul>
+                <template v-for="book in books">
+                    <li>{{book}}</li>
+                </template>
+            </ul>
+
+            <legend>v-for index</legend>
+            <ul>
+                <li v-for="(book, index) in books">
+                    {{index+1}}. {{book}}
+                </li>
+            </ul>
+
+            <legend>v-for with key</legend>
+            <ul>
+                <li v-for="(book, key, index) in books_key">
+                    {{index+1}}. {{key}}: {{book}}
+                </li>
+            </ul>
+
+            <legend>v-for collection</legend>
+            <table border="1">
+                <tr v-for="book of books_collection">
+                    <td>
+                        <img width="100" :src="'image/'+book.image">
+                    </td>
+                    <td>
+                        title: {{book.title}}<br>
+                        description: {{book.description}}<br>
+                        authors: {{book.authors}}<br>
+                        price: {{book.price}}
+                    </td>
+                </tr>
+            </table>
+
+            <br><br>
+            <legend>v-for attribute key</legend>
+            <ul>
+                <li v-for="(book, index) of books" v-bind:key="index">
+                    {{ index+1 }}. {{ book }}
+                </li>
+            </ul>
+
+            <legend>v-for with v-if</legend>
+            <table border="1">
+                <tr v-for="(book, index) of books_collection" v-bind:key="index" v-if="book.price < 100000">
+                    <td>
+                        <img width="100" :src="'image/'+book.image">
+                    </td>
+                    <td>
+                        title: {{book.title}}<br>
+                        description: {{book.description}}<br>
+                        authors: {{book.authors}}<br>
+                        price: {{book.price}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+				el: '#app',
+				data: {
+					books: [
+                        'C++ High performance',
+                        'Mastering Linux',
+                        'Scraping data with Python',
+                        'Basic Query'
+                    ],
+                    books_key: {
+                        id: 99,
+                        title: 'scraping data with python',
+                        description: 'you can scrap any data as you can in the web',
+                        authors: 'Dangs Team',
+                        publish_year: 2020,
+                        price: 550000
+                    },
+                    books_collection: [
+                        {
+                            id: 99,
+                            title: 'C++ High Performance',
+                            description: 'Write code that scales across CPU registers, multi-core, and machine clusters ',
+                            authors: 'Viktor Sehr, Björn Andrist',
+                            publish_year: 2018,
+                            price: 100000,
+                            image: 'c++-high-performance.jpg'
+                        }, {
+                            id: 100,
+                            title: 'Mastering Linux Security and Hardening',
+                            description: 'A comprehensive guide to mastering the art of preventing your Linux system from getting compromised ',
+                            authors: 'Donald A. Tevault',
+                            publish_year: 2018,
+                            price: 125000,
+                            image: 'mastering-linux-security-and-hardening.jpg'
+                        }, {
+                            id: 101,
+                            title: 'Mastering PostgreSQL 10',
+                            description: 'Master the capabilities of PostgreSQL 10 to efficiently manage and maintain your database ',
+                            authors: 'Hans-Jürgen Schönig',
+                            publish_year: 2016,
+                            price: 90000,
+                            image: 'mastering-postgresql-10.png'
+                        }, {
+                            id: 102,
+                            title: 'Python Programming Blueprints',
+                            description: 'How to build useful, real-world applications in the Python programming language ',
+                            authors: 'Daniel Furtado, Marcus Pennington',
+                            publish_year: 2017,
+                            price: 75000,
+                            image: 'python-programming-blueprints.jpg'
+                        },
+                    ]
+				}
+            })
+        </script>
+    </body>
+</html>
