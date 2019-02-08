@@ -48,6 +48,16 @@
             <br><br>
             <button v-on:click="counter +=1">Counter +</button> &nbsp; <button v-on:click="counter=0">reset</button>
             <p>klik counter sebanyak {{counter}}</p>
+            <br>
+            <input v-on:keyup.enter="info('Terima kasih ' + $event.target.value)">
+            <button v-on:click.ctrl="info('hola')">
+                SHIFT + CLICK
+            </button>
+            <hr>
+
+            <legend>v-bind</legend>
+            <br>
+            <img v-bind:src="imageSrc"/>
         </div>
         <script type="text/javascript">
             var vm = new Vue({
@@ -56,7 +66,8 @@
 					d_html: "<span style='color:red'>Semangat Pagi Indonesia</span>",
                     d_show: true,
                     nilai: "A",
-                    counter: 0
+                    counter: 0,
+                    imageSrc: 'logo-vue.png'
 				},
                 methods: {
                     showHide() {
@@ -71,6 +82,10 @@
                     }
                 }
 			})
+
+            setTimeout(()=>{
+                vm.imageSrc = 'logo-kandang.png'
+            },3000);
         </script>
     </body>
 </html>
