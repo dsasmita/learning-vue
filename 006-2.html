@@ -1,0 +1,144 @@
+<!-- Form submit -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+        <style>
+        form {
+            border: 1px solid #ddd;
+            padding:5px;
+            width:225px;
+            background: #efefef;
+        }
+        label{
+            display: block;
+            margin-top: 5px;
+        }
+        input, textarea, select, option {
+            min-width: 200px;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Form Submit</h1>
+            <form ref="formBook" @submit.prevent="submitForm($event)" action="http://example.com/add-product" method="post">
+                <p v-if="errors.length">
+                    <b>Please check inpput</b>
+                    <ul>
+                        <li v-for="error in errors">{{error}}</li>
+                    </ul>
+                </p>
+                <label>
+                    Title:
+                </label>
+                <input type="text" v-model="title" name="title" ref="title"/><br>
+                <label>
+                    Description:
+                </label>
+                <textarea v-model="description" name="description" ref="description">
+                </textarea><br>
+                <label>
+                    Authors:
+                </label>
+                <input type="text" v-model="authors" name="authors" ref="authors" /><br>
+                <label>
+                    Price:
+                </label>
+                <input type="number" v-model.number="price" name="price" ref="price"><br>
+                <label>
+                    Categories:
+                </label>
+                <select multiple="" v-model="categories" name="categories[]" ref="categories">
+                    <option :value="option.value" v-for="option in options">
+                        {{ option.text }}
+                    </option>
+                </select><br>
+
+                <label>Cover:</label>
+                <input name="cover" ref="cover" type="file"><br><br>
+
+                <input type="submit" value="Submit"/>
+            </form>
+
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    title: 'Google Glass with VueJS',
+                    description: 'Control Google Glass with VueJS',
+                    authors: 'dangs',
+                    price: 250000,
+                    categories: [],
+                    options: [
+                        {
+                            text: 'Graphics Programming',
+                            value: '01'
+                        }, {
+                            text: 'Mobile Application Development',
+                            value: '02'
+                        }, {
+                            text: 'Virtual and Augmented Reality',
+                            value: '03'
+                        }
+                    ],
+                    errors: []
+                },
+                methods: {
+                    submitForm(event) {
+                        event.preventDefault()
+
+                        this.errors = []
+
+                        // kode validasi
+                        if(this.title.length < 3){
+                            this.errors.push('Title minimal 3 karakter.')
+                        }
+                        if(this.description.length > 500){
+                            this.errors.push('Description maksimal 500 karakter.')
+                        }
+                        if(this.authors.length < 3){
+                            this.errors.push('Authors minimal 3 karakter.')
+                        }
+                        if(this.price < 0){
+                            this.errors.push('Price lebih dari 0.')
+                        }
+                        if(this.categories.length === 0){
+                            this.errors.push('Pilih minimal 1 category.')
+                        }
+
+                        if(this.errors.length === 0){
+                            let formBook = this.$refs.formBook
+                            let cover = this.$refs.cover.files[0]
+
+                            formData = new FormData(formBook);
+                            formData.append("cover", cover);
+
+                            let xhttp = new XMLHttpRequest()
+
+                            xhttp.onreadystatechange = function() {
+                                // state ini menunjukkan data terkirim dan diterima server dengan baik
+                                if (this.readyState == 4 && this.status == 200) {
+                                    // respon text dari server
+                                    console.log(this.responseText)
+                                }
+                            }
+                            // sesuaikan dengan lokasi file index.php di lokasi komputer kamu
+                            xhttp.open("POST", "http://localhost:8080/006-receive.php", true)
+                            // bisa juga langsung nama filenya jika berada dalam satu folder yang sama
+                            // xhttp.open("POST", "index.php", true)
+                            // kirim objek formData
+                            xhttp.send(formData)
+                            alert('Terima kasih telah mengisi data dengan benar.')
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
