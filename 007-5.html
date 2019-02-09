@@ -1,0 +1,76 @@
+<!-- Component -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+        <style type="text/css">
+        .card {
+            background: #efefef;
+            border:1px solid #ddd;
+            margin-right:5px;
+            padding:5px;
+            width: 200px;
+            float:left;
+        }
+        h3{
+            min-height: 45px;
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+            opacity: 0;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <button v-on:click="currentComponent = 'list'">List</button>
+            <button v-on:click="currentComponent = 'detail'">Detail</button>
+            <hr>
+            <transition name="fade" mode="out-in">
+                <component :is="currentComponent"></component>
+            </transition>
+        </div>
+        <script type="text/javascript">
+            var list = {
+                template: 
+                `
+                    <div class="card">
+                        <strong>Bahasa Pemrograman</strong>
+                        <ul>
+                            <li>Javascript</li>
+                            <li>Python</li>
+                            <li>PHP</li>
+                        </ul>
+                    </div>
+                `
+            }
+
+            var detail = {
+                template:
+                `
+                    <div class="card">
+                        <strong>PHP</strong>
+                        <p>PHP bukan pemberi harapan palsu</p>
+                    </div>
+                `
+            }
+
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    currentComponent: 'list'
+                },
+                components: {
+                    'list': list,
+                    'detail': detail
+                }
+            })
+        </script>
+    </body>
+</html>
