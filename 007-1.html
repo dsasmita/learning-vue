@@ -1,0 +1,35 @@
+<!-- Component -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+        <style type="text/css">
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div id="app">
+                <h1>Component</h1>
+                <hello-vue></hello-vue>
+            </div>
+        </div>
+        <script type="text/javascript">
+            Vue.component('hello-vue', {
+                data() {
+                    return {
+                        message: 'Hello vue.'
+                    }
+                },
+                template: '<h1>{{ message }}</h1>'
+            })
+
+            var vm = new Vue({
+                el: '#app'
+            })
+        </script>
+    </body>
+</html>

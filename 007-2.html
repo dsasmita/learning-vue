@@ -1,0 +1,44 @@
+<!-- Component -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+        <style type="text/css">
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div id="app1">
+                <h1>Objek Vue 1</h1>
+                <component-a></component-a>
+                <component-b></component-b>
+            </div>
+            <div id="app2">
+                <h1>Objek Vue 2</h1>
+                <component-a></component-a>
+                <component-c></component-c>
+            </div>
+        </div>
+        <script type="text/javascript">
+            Vue.component('component-a', {
+                template: '<p>Component A</p>'
+            })
+            Vue.component('component-b', {
+                template: '<p>Component B</p>'
+            })
+            Vue.component('component-c', {
+                template: '<p>Component C</p>'
+            })
+            new Vue({
+                el: '#app1'
+            })
+            new Vue({
+                el: '#app2'
+            })
+        </script>
+    </body>
+</html>
