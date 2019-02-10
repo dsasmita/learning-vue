@@ -1,0 +1,66 @@
+<!-- Component -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+        <style type="text/css">
+            .fade-enter-active, .fade-leave-active {
+                transition: opacity .5s;
+            }
+            .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+                opacity: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <p>
+                <router-link to="/">Home</router-link> - 
+                <router-link to="/about">About</router-link> -
+                <router-link to="/books">Books</router-link> - 
+                <router-link :to="{ name: 'book', params: {id: 99} }">Buku C++</router-link>
+            </p>
+            <transition name="slide" mode="out-in">
+                <router-view></router-view>
+            </transition>
+        </div>
+        <script type="module">
+            import {BooksComponent} from '/008-1-1.js'
+            import {BookComponent} from '/008-1-2.js'
+
+            const Home = { template: '<div><h1>Halaman Home</h1></div>' }
+            const About = { template: '<div><h1>Halaman About</h1></div>' }
+
+            const routes = [
+                { path: '/', component: Home, alias: '/Home' },
+                { path: '/about', component: About, meta: {login: true} },
+                { path: '/books', component: BooksComponent },
+                { path: '/book/:id', name: 'book', component: BookComponent, props: true },
+                { path: '*', redirect: '/' }
+            ]
+
+            const router = new VueRouter({
+                routes
+            })
+
+            router.beforeEach((to, from, next) => {
+                if (to.matched.some(record => record.meta.login)) {
+                    alert('Halaman ini hanya untuk user yang sudah login!')
+                    next(false)
+                }
+                else{
+                    next()
+                }
+            })
+
+            var vm = new Vue({
+                el: '#app',
+                router
+            })
+        </script>
+    </body>
+</html>
