@@ -1,0 +1,57 @@
+<!-- Component -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Belajar Vue
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+        <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+        <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        </div>
+        <script type="module">
+            import {Hello} from '/009-1.js'
+
+            const store = new Vuex.Store({
+                strict: true,
+                state: {
+                    counter: 0
+                },
+                mutations: {
+                    increment: state => state.counter++
+                },
+                getters: {
+                    counter: state => state.counter
+                }
+            })
+
+            new Vue({
+                el: '#app',
+                store,
+                components: {
+                    'hello': Hello
+                },
+                computed: {
+                    counter(){
+                        return store.getters.counter
+                    }
+                },
+                template: `
+                    <div>
+                        {{counter}}
+                        <button @click="increment()">plus</button>
+                        <hello></hello>
+                    </div>
+                `,
+                methods: {
+                    increment() {
+                        store.commit('increment')
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
